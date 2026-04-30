@@ -1,4 +1,4 @@
-"""LLM service that wraps Google Gemini 1.5 Flash for generation and verification."""
+"""LLM service that wraps Google Gemini 2.5 Flash for generation and verification."""
 
 import google.generativeai as genai
 
@@ -15,13 +15,13 @@ _VERIFIER_INSTRUCTION = (
 
 
 class LLMService:
-    """Provides text generation and grounding verification via Gemini 1.5 Flash.
+    """Provides text generation and grounding verification via Gemini 2.5 Flash.
 
     Both *generate* and *verify* use the same underlying model so that the
     verifier applies the same world-knowledge cut-off as the generator.
     """
 
-    MODEL_ID = "gemini-1.5-flash"
+    MODEL_ID = "gemini-2.5-flash"
 
     def __init__(self, api_key: str) -> None:
         """Configure the Gemini SDK with *api_key*.
@@ -49,7 +49,7 @@ class LLMService:
             return response.text
         except Exception as exc:
             raise RuntimeError(
-                f"Gemini 1.5 Flash generation failed: {exc}"
+                f"Gemini 2.5 Flash generation failed: {exc}"
             ) from exc
 
     def verify(self, augmented_prompt: str, answer: str) -> str:
@@ -76,5 +76,5 @@ class LLMService:
             return response.text
         except Exception as exc:
             raise RuntimeError(
-                f"Gemini 1.5 Flash verification failed: {exc}"
+                f"Gemini 2.5 Flash verification failed: {exc}"
             ) from exc

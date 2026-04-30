@@ -6,7 +6,7 @@ Workflow
    quick testing).
 2. Call the RAG server to retrieve grounding context and obtain an
    ``augmented_prompt``.
-3. Pass the ``augmented_prompt`` to Gemini 1.5 Flash to generate an answer.
+3. Pass the ``augmented_prompt`` to Gemini 2.5 Flash to generate an answer.
 4. Run the Verifier step: ask the LLM to check whether the answer is grounded
    exclusively in the retrieved context.
 5. If the Verifier flags a hallucination, perform one Self-Correction attempt
@@ -109,7 +109,7 @@ def run(user_query: str) -> str:
     # ------------------------------------------------------------------
     # Step 2 — LLM generation
     # ------------------------------------------------------------------
-    logger.info("Generating answer with Gemini 1.5 Flash …")
+    logger.info("Generating answer with Gemini 2.5 Flash …")
     try:
         answer = llm.generate(augmented_prompt)
     except RuntimeError as exc:
