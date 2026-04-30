@@ -21,7 +21,7 @@ import sys
 
 from dotenv import load_dotenv
 
-from services import LLMService, RAGClient
+from services import LLMService, RAGClient, compute_confidence, confidence_label
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -102,8 +102,11 @@ def run(user_query: str) -> str:
     augmented_prompt: str = rag_response["augmented_prompt"]
     sources: list = rag_response.get("sources", [])
     scores: list = rag_response.get("scores", [])
+    confidence = compute_confidence(sources, scores)
+    confidence_text = confidence_label(confidence)
 
     _log_rag_metadata(sources, scores)
+    logger.info("Reliability confidence: %.2f (%s)", confidence, confidence_text)
     logger.info("Augmented prompt received (%d chars).", len(augmented_prompt))
 
     # ------------------------------------------------------------------
